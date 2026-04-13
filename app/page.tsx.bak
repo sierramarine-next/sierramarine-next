@@ -1,0 +1,40 @@
+// app/page.tsx
+import { Hero } from "../components/Hero";
+import { ServiceCard } from "../components/ServiceCard";
+import { services } from "../lib/services";
+
+export default function HomePage() {
+  return (
+    <>
+      <Hero />
+
+      {/* Anasayfa içinde hizmetler bölümü – smooth scroll için id veriyoruz */}
+      <section
+        id="hizmetler"
+        className="mx-auto max-w-6xl px-4 py-12 space-y-6"
+      >
+        <header className="space-y-2">
+          <h2 className="text-xl md:text-2xl font-semibold text-sky-950">
+            Hizmet Alanlarımız
+          </h2>
+          <p className="text-sm text-slate-600 max-w-2xl">
+            Gemi donatımından emniyet ekipmanlarına, basılı ve dijital
+            haritalardan survey hazırlığına kadar uçtan uca çözümler
+            sunuyoruz.
+          </p>
+        </header>
+
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {services.map((service) => (
+            <ServiceCard
+              key={service.slug}
+              slug={service.slug}
+              title={service.title}
+              excerpt={service.excerpt}
+            />
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
