@@ -10,7 +10,12 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const isEn = pathname.startsWith("/en");
 
-  const navItems = isEn
+  // Sosyal medya linkleri (kendi hesaplarınızla değiştirin)
+  const instagramUrl = "https://www.instagram.com/_sierramarine_/";
+  const linkedinUrl = "https://www.linkedin.com/in/sierra-marine-gemi-donatim-hizmetleri/";
+
+  // Ana menü öğeleri (sadece dahili sayfalar)
+  const mainNavItems = isEn
     ? [
         { href: "/en", label: "Home" },
         { href: "/en/hakkimizda", label: "About" },
@@ -46,6 +51,7 @@ export function Navbar() {
           />
         </div>
         <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-4 py-2">
+          {/* Sol grup: Dil butonu + Sosyal medya linkleri */}
           <div className="flex items-center gap-3">
             <Link
               href={toggleHref}
@@ -53,6 +59,24 @@ export function Navbar() {
             >
               {isEn ? "TR" : "EN"}
             </Link>
+            {/* Instagram ve LinkedIn linkleri */}
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:inline-flex items-center text-navy-900 hover:text-gold-500 text-sm font-semibold"
+            >
+              Instagram
+            </a>
+            <a
+              href={linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:inline-flex items-center text-navy-900 hover:text-gold-500 text-sm font-semibold"
+            >
+              LinkedIn
+            </a>
+            {/* Mobil menü butonu */}
             <button
               className="md:hidden inline-flex items-center justify-center rounded-md border border-navy-900/50 p-2 text-sm text-navy-900"
               onClick={() => setOpen(!open)}
@@ -61,12 +85,13 @@ export function Navbar() {
             </button>
           </div>
 
+          {/* Sağ grup: Ana menü öğeleri */}
           <nav
             className={`${
               open ? "flex" : "hidden"
             } absolute top-full left-0 right-0 bg-white/90 backdrop-blur-md flex-col p-4 gap-2 md:static md:flex md:flex-row md:items-center md:gap-4 md:p-0 md:bg-transparent md:backdrop-blur-none border-t md:border-t-0`}
           >
-            {navItems.map((item) => {
+            {mainNavItems.map((item) => {
               const active =
                 item.href === (isEn ? "/en" : "/")
                   ? pathname === item.href
@@ -86,13 +111,34 @@ export function Navbar() {
                 </Link>
               );
             })}
-            <Link
-              href={toggleHref}
-              className="md:hidden inline-flex items-center justify-center rounded-full border border-navy-900/50 px-3 py-1 text-sm font-semibold text-navy-900 hover:bg-navy-900/10 mt-2"
-              onClick={() => setOpen(false)}
-            >
-              {isEn ? "TR" : "EN"}
-            </Link>
+            {/* Mobil menüde sosyal medya linklerini de göster */}
+            <div className="md:hidden flex flex-col gap-2 mt-2 pt-2 border-t border-gray-200">
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-2 text-navy-900 hover:text-gold-500"
+                onClick={() => setOpen(false)}
+              >
+                Instagram
+              </a>
+              <a
+                href={linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-2 text-navy-900 hover:text-gold-500"
+                onClick={() => setOpen(false)}
+              >
+                LinkedIn
+              </a>
+              <Link
+                href={toggleHref}
+                className="inline-flex items-center justify-center rounded-full border border-navy-900/50 px-3 py-1 text-sm font-semibold text-navy-900 hover:bg-navy-900/10 mt-2"
+                onClick={() => setOpen(false)}
+              >
+                {isEn ? "TR" : "EN"}
+              </Link>
+            </div>
           </nav>
         </div>
       </div>
