@@ -1,5 +1,6 @@
-// components/ServiceCard.tsx (son hali)
-import FlipCard from "./FlipCard";
+// components/ServiceCard.tsx (flip'siz, sabit kart)
+"use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -16,26 +17,16 @@ export default function ServiceCard({ slug, title, excerpt, description, icon }:
   const isEn = pathname?.startsWith("/en") || false;
   const href = isEn ? `/en/hizmetler/${slug}` : `/hizmetler/${slug}`;
 
-  const front = (
-    <div className="card h-full flex flex-col items-center justify-center text-center p-6">
-      <div className="text-5xl mb-4">{icon}</div>
-      <h3 className="text-xl font-bold text-navy-800">{title}</h3>
-      <p className="text-gray-600 mt-2">{excerpt}</p>
-      <p className="text-xs text-gold-500 mt-4">{isEn ? "👆 Tap / Click" : "👆 Dokun / Tıkla"}</p>
-    </div>
-  );
-
-  const back = (
-    <div className="card h-full flex flex-col justify-between p-6 bg-navy-50">
-      <div>
-        <h3 className="text-xl font-bold text-navy-800 mb-2">{title}</h3>
-        <p className="text-gray-700 text-sm">{description}</p>
+  return (
+    <Link href={href} className="block h-full">
+      <div className="card h-full flex flex-col items-center justify-between text-center p-6 min-h-[280px] transition-all hover:shadow-lg hover:-translate-y-1">
+        <div className="text-5xl mb-4">{icon}</div>
+        <h3 className="text-xl font-bold text-navy-800">{title}</h3>
+        <p className="text-gray-600 text-sm mt-2 line-clamp-3">{excerpt}</p>
+        <p className="text-gold-500 text-sm font-semibold mt-4 inline-flex items-center gap-1">
+          {isEn ? "More details →" : "Detaylı bilgi →"}
+        </p>
       </div>
-      <Link href={href} className="mt-4 text-gold-500 font-semibold hover:underline inline-flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
-        {isEn ? "More details →" : "Detaylı bilgi →"}
-      </Link>
-    </div>
+    </Link>
   );
-
-  return <FlipCard front={front} back={back} />;
 }

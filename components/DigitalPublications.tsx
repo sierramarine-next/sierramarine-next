@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import FlipCard from "./FlipCard";
 
 const publications = {
   tr: [
@@ -68,24 +67,12 @@ export default function DigitalPublications() {
       </div>
       <div className="grid gap-6 md:grid-cols-3">
         {data.map((pub) => (
-          <FlipCard
-            key={pub.title}
-            front={
-              <div className="card h-full flex flex-col items-center justify-center text-center p-6">
-                <div className="text-5xl mb-4">{pub.icon}</div>
-                <h3 className="text-2xl font-bold text-navy-800">{pub.title}</h3>
-                <p className="text-gray-600 mt-2">{pub.shortDesc}</p>
-                <p className="text-xs text-gold-500 mt-4">👆 Dokun / Tıkla</p>
-              </div>
-            }
-            back={
-              <div className="card h-full flex flex-col items-center justify-center text-center p-6 bg-navy-50">
-                <h3 className="text-xl font-bold text-navy-800 mb-2">{pub.title}</h3>
-                <p className="text-gray-700">{pub.longDesc}</p>
-                <p className="text-sm text-gold-500 mt-4">Tekrar tıkla kapat</p>
-              </div>
-            }
-          />
+          <div key={pub.title} className="card h-full flex flex-col items-center text-center p-6 min-h-[280px]">
+            <div className="text-5xl mb-4">{pub.icon}</div>
+            <h3 className="text-2xl font-bold text-navy-800">{pub.title}</h3>
+            <p className="text-gray-600 mt-2 text-sm">{pub.shortDesc}</p>
+            <p className="text-xs text-gray-500 mt-4">{pub.longDesc}</p>
+          </div>
         ))}
       </div>
     </section>
